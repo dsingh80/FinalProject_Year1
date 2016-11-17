@@ -25,6 +25,7 @@ class Address{
 		void setCity(std::string);
 		void setState(std::string);
 		void setZipCode(int);
+		void setZipCode(std::string); // incase a string is passed. Converts to string
 		
 	private:
 		std::string lineOne;

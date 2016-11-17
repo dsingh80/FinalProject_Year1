@@ -109,3 +109,13 @@ void Address::setState(std::string tempState){
 void Address::setZipCode(int tempZipCode){
 	Address::zipCode = tempZipCode;
 }
+
+void Address::setZipCode(std::string tempZipCode){
+	/* CONVERTS STRING TO INT ZIPCODE */
+
+	std::stringstream convertStream;
+	convertStream << tempZipCode;
+	convertStream >> zipCode; // output as int and assign to zipCode
+
+
+}

@@ -29,10 +29,10 @@ std::string User::toString(){
 
 	std::stringstream fullInfo;
 	
-	fullInfo << getFullName();
+	fullInfo << "\n\t" << getFullName();
+	fullInfo << "\n\tBorn: " << getBirthDate();
 	fullInfo << getAddress();
-	fullInfo << "\n" << getBirthDate();
-	
+
 	return fullInfo.str();
 }
 
