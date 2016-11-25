@@ -36,11 +36,12 @@ void Account::withdraw(double witAmount){
 		//Withdraw money
 		balance = balance - witAmount;
 		//Tell them new balance
-		std::cout << "Withdrew $" << getBalance() << " from " << accountType << " account." << std::endl;
+		std::cout << "Withdrew $" << witAmount << " from " << accountType << " account." << std::endl;
 		std::cout << "New Balance: $" << getBalance() << std::endl;
 	}
 	else{
 		//Money not available
+		std::cout << "TRANSACTION FAILED: Insufficient funds in " << accountType << "account." << std::endl;
 	}
 }
 
@@ -51,6 +52,7 @@ User* Account::getOwner(){
 
 void Account::setOwner(User* newOwner){
 	/* GIVE CONTROL TO NEW USER */
-	
-	*(owner) = *(newOwner); // use copy constructors to make new owner
+	delete owner; // deallocate old owner
+	owner = newOwner; // point to new owner
+	//*(owner) = *(newOwner); // use copy constructors to make new owner
 }

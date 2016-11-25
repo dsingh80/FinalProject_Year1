@@ -11,7 +11,6 @@ CheckingAccount::CheckingAccount(User* firstUser){
 
 CheckingAccount::~CheckingAccount(){
 	//DEALLOCATE HEAP MEMORY
-	
 }
 
 std::string CheckingAccount::getType(){

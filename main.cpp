@@ -13,7 +13,7 @@ int main(){
 	//testAddress();
 	//testDate();
 	//testUser();
-	//testAccount();
+	testAccount();
 
 	return 0;
 }
@@ -71,20 +71,19 @@ void testAccount(){
 	std::cout << "=====Test Account=====" << std::endl;
 	
 	std::cout << "1: " << testAccount.getBalance() << std::endl;
-	std::cout << testAccount.getOwner() << std::endl;
+	std::cout << testAccount.getOwner()->toString() << std::endl;
 
 	User* tempOwner = new User();
 	testAccount.setOwner(tempOwner);
 	std::cout << "2: " << testAccount.getBalance() << std::endl;
-	std::cout << testAccount.getOwner() << std::endl;
+	std::cout << testAccount.getOwner()->toString() << std::endl;
 
 	testAccount.deposit(double(100.25));
 	std::cout << "3: " << testAccount.getBalance() << std::endl;
-	std::cout << testAccount.getOwner() << std::endl;
+	std::cout << testAccount.getOwner()->toString() << std::endl;
 	
 	testAccount.withdraw(double(10.25));
 	std::cout << "4: " << testAccount.getBalance() << std::endl;
-	std::cout << testAccount.getOwner() << std::endl;	
+	std::cout << testAccount.getOwner()->toString() << std::endl;	
 	
-	delete tempOwner;
 }
