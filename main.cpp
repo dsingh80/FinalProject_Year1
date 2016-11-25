@@ -2,7 +2,7 @@
 #include "Address.h"
 #include "Date.h"
 #include "Account.h"
-
+#include "CheckingAccount.h"
 void testUser();
 void testDate();
 void testAddress();
@@ -67,13 +67,14 @@ void testAddress(){
 }
 
 void testAccount(){
-	Account testAccount = CheckingAccount();
+	CheckingAccount testAccount = CheckingAccount();
 	std::cout << "=====Test Account=====" << std::endl;
 	
 	std::cout << "1: " << testAccount.getBalance() << std::endl;
 	std::cout << testAccount.getOwner() << std::endl;
 
-	testAccount.setOwner(User());
+	User* tempOwner = new User();
+	testAccount.setOwner(tempOwner);
 	std::cout << "2: " << testAccount.getBalance() << std::endl;
 	std::cout << testAccount.getOwner() << std::endl;
 
@@ -85,4 +86,5 @@ void testAccount(){
 	std::cout << "4: " << testAccount.getBalance() << std::endl;
 	std::cout << testAccount.getOwner() << std::endl;	
 	
+	delete tempOwner;
 }

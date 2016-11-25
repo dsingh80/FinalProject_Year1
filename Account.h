@@ -8,7 +8,7 @@ class Account{
 	public:
 		
 		Account();
-		Account(std::string, User);
+		Account(std::string, User*);
 		~Account(); // delete User
 
 		// Add abstract class framework
@@ -21,7 +21,7 @@ class Account{
 
 		// ACCESSORS & MODIFIERS
 		User* getOwner();
-		void setOwner(User); // give user permission to access account
+		void setOwner(User*); // give user permission to access account
 
 	protected:
 		std::string accountType; // type of account
