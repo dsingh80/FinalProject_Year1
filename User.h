@@ -13,6 +13,8 @@ class User{
 		
 		//CONSTRUCTORS
 		User();
+		User(std::string, std::string); // pass in name of user
+		User(const User&); // copy constructor
 		~User(); // Destructor
 
 

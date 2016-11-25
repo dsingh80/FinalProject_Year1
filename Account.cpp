@@ -26,6 +26,11 @@ double Account::getBalance(){
 void Account::deposit(double depAmount){
 	/* DEPOSIT MONEY INTO ACCOUNT */	
 	balance = balance + depAmount;
+	
+	//Tell them new balance
+	std::cout << "Deposited $" << depAmount << " into " << accountType << " account." << std::endl;
+	std::cout << "New Balance: $" << getBalance() << std::endl;
+
 }
 
 void Account::withdraw(double witAmount){

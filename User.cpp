@@ -11,6 +11,26 @@ User::User(){
 	setPassword(); // calculate password key
 }
 
+User::User(std::string newFirstName, std::string newLastName){
+	firstName = newFirstName;
+	lastName = newLastName;
+	
+	birthDate = new Date();
+	address = new Address();
+	
+	setPassword();
+}
+
+User::User(const User& otherUser){
+	firstName = otherUser.firstName;
+	lastName = otherUser.lastName;
+	
+	birthDate = otherUser.birthDate;
+	address = otherUser.address;
+	
+	setPassword();
+}
+
 User::~User(){
 	/* DESTRUCTOR */
 
@@ -32,6 +52,7 @@ std::string User::toString(){
 	fullInfo << "\n\t" << getFullName();
 	fullInfo << "\n\tBorn: " << getBirthDate();
 	fullInfo << getAddress();
+	fullInfo << "\n";
 
 	return fullInfo.str();
 }
