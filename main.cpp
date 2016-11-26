@@ -3,18 +3,21 @@
 #include "Date.h"
 #include "Account.h"
 #include "CheckingAccount.h"
+#include "Bank.h"
+
 void testUser();
 void testDate();
 void testAddress();
-void testAccount();
+void testAccount(); // Test account class & Checking Account
+
 
 int main(){
 	//Initialize test classes
 	//testAddress();
 	//testDate();
 	//testUser();
-	testAccount();
-
+	//testAccount();
+	Bank();
 	return 0;
 }
 

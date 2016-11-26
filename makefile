@@ -1,8 +1,10 @@
 CC = g++ -std=c++11
 CFLAGS = -g -c
 
-BankRunner: main.cpp CheckingAccount.o Account.o User.o Date.o Address.o
-	$(CC) -g main.cpp CheckingAccount.o Account.o User.o Date.o Address.o -o BankRunner
+BankRunner: main.cpp Bank.o CheckingAccount.o Account.o User.o Date.o Address.o
+	$(CC) -g main.cpp Bank.o CheckingAccount.o Account.o User.o Date.o Address.o -o BankRunner
+Bank.o: Bank.cpp Bank.h CheckingAccount.o
+	$(CC) $(CFLAGS) Bank.cpp Bank.h
 CheckingAccount.o: CheckingAccount.cpp CheckingAccount.h Account.o
 	$(CC) $(CFLAGS) CheckingAccount.cpp CheckingAccount.h
 Account.o: Account.cpp Account.h User.o

@@ -2,8 +2,8 @@
 #include <sstream>
 
 User::User(){
-	firstName = "";
-	lastName = "";
+	firstName = "Unknown";
+	lastName = "name";
 	
 	birthDate = new Date();
 	address = new Address();

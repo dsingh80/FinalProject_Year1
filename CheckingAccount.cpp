@@ -11,6 +11,8 @@ CheckingAccount::CheckingAccount(User* firstUser){
 
 CheckingAccount::~CheckingAccount(){
 	//DEALLOCATE HEAP MEMORY
+	
+	// Parent class(Account) deletes owner
 }
 
 std::string CheckingAccount::getType(){
