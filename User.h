@@ -13,7 +13,8 @@ class User{
 		
 		//CONSTRUCTORS
 		User();
-		User(std::string, std::string); // pass in name of user
+		User(std::string, std::string, std::string); // pass in name of user and password
+		User(std::string); // pass in all user info
 		User(const User&); // copy constructor
 		~User(); // Destructor
 
@@ -24,8 +25,9 @@ class User{
 
 
 		//ACCESSORS & MODIFIERS
-		std::string getPassword(); // return password
-
+		void setKey(); // create passkey for save file
+		std::string getKey(); // return passkey for save file
+		
 		void setFirstName(std::string);
 		std::string getFirstName()
 ;
@@ -46,13 +48,15 @@ class User{
 	private:
 		std::string firstName;
 		std::string lastName;
+
+		std::string password; // USER-INPUTTED pass word to account
 		
 		Date* birthDate; // on heap
 		Address* address; // on heap
 
 		//Used to access saved information
 		//NOT USER INPUTTED
-		std::string password; // calculated after first and last name are known;
+		std::string key; // calculated after first and last name are known;
 		
 		void setPassword(); // calculate password
 };

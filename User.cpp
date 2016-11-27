@@ -1,34 +1,64 @@
 #include "User.h"
+#include <string>
 #include <sstream>
 
 User::User(){
 	firstName = "Unknown";
 	lastName = "name";
 	
+	password = "password";
+
 	birthDate = new Date();
 	address = new Address();
 
-	setPassword(); // calculate password key
+	setKey(); // calculate password key
 }
 
-User::User(std::string newFirstName, std::string newLastName){
+User::User(std::string newFirstName, std::string newLastName, std::string newPassword){
 	firstName = newFirstName;
 	lastName = newLastName;
 	
+	password = newPassword;
+
 	birthDate = new Date();
 	address = new Address();
 	
-	setPassword();
+	setKey();
+}
+
+User::User(std::string userInfo){
+	// LOAD USER SAVE CONSTRUCTOR
+	
+	// Extract all info
+	firstName = userInfo.substr(0, userInfo.find("|"));
+	userInfo = userInfo.substr(userInfo.find("|"));
+	
+	lastName  = userInfo.substr(0, userInfo.find("|"));
+	userInfo = userInfo.substr(userInfo.find("|"));
+	
+	password = userInfo.substr(0, userInfo.find("|"));
+	userInfo = userInfo.substr(userInfo.find("|"));
+	
+	std::string tempBirthInfo = userInfo.substr(0, userInfo.find("|"));
+	birthDate = new Date(tempBirthInfo);
+	userInfo = userInfo.substr(userInfo.find("|"));
+
+	std::string tempAddressInfo = userInfo.substr(0, userInfo.find("|"));
+	address = new Address(tempAddressInfo);
+
+	setKey();
 }
 
 User::User(const User& otherUser){
 	firstName = otherUser.firstName;
 	lastName = otherUser.lastName;
 	
+	password = otherUser.password;
+
 	birthDate = otherUser.birthDate;
 	address = otherUser.address;
 	
-	setPassword();
+	setKey();
 }
 
 User::~User(){
@@ -71,8 +101,22 @@ std::string User::getFullName(){
 }
 
 
-void User::setPassword(){
+void User::setKey(){
 	/* CALCULATE PASSWORD KEY */
+	
+	//concat(firstName, password, lastName);
+	std::stringstream concatStream;
+	concatStream << firstName << password << lastName;
+	
+	key = concatStream.str();
+	
+	// Use symmetric hashing to jumble the key
+}
+
+std::string User::getKey(){
+	/* GET PASS KEY FOR SAVE FILE */
+	
+	return key;
 }
 
 
@@ -80,11 +124,6 @@ void User::setPassword(){
 /**********************************************************/
 /*------------------ACCESSORS & MODIFIERS-----------------*/
 /**********************************************************/
-
-std::string User::getPassword(){
-	return password;
-}
-
 
 
 // FIRST NAME //

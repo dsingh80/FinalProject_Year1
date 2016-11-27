@@ -11,8 +11,10 @@ class Bank{
 		Bank();
 		~Bank();
 		
-		void login(); // retrieve user info
+		bool login(); // retrieve user info
 		void logout(); // save user info
+
+		User makeNewUser();
 
 		void NewCheckingAccount(); // make new checking account
 		void CloseCheckingAccount(); // remove checking account

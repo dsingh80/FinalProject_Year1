@@ -5,29 +5,31 @@
 
 Bank::Bank(){
 
-	login(); // retrieve old information or make new user
-	double pocketCash = 0.0;
+	bool loginSuccessful = login(); // retrieve old information or make new user
+	if(loginSuccessful == true){
+		// LOGGED IN SUCCESSFULLY
+		double pocketCash = 0.0;
 
-	// ASK FOR AMOUNT OF MONEY THAT USER HAS ON HAND
-	
-
-	std::string inputCmd;
-	bool keepGoing = true;
-	
-	// Get a valid command to do
-	std::cout << "What can I do for you today?" << std::endl;
-	getline(std::cin, inputCmd);
-
-	while(keepGoing){
-		// Check for valid commands
-		if(inputCmd=="quit" || inputCmd == "exit"){
-			keepGoing = false;
-		}
+		// ASK FOR AMOUNT OF MONEY THAT USER HAS ON HAND
 		
+
+		std::string inputCmd;
+		bool keepGoing = true;
+		
+		// Get a valid command to do
+		std::cout << "What can I do for you today?" << std::endl;
+		getline(std::cin, inputCmd);
+
+		while(keepGoing){
+			// Check for valid commands
+			if(inputCmd=="quit" || inputCmd == "exit"){
+				keepGoing = false;
+				break;
+			}	
 			
-		
-		std::cout << "What can I do for you today?" << std::endl;	
-		getline(std::cin, inputCmd); // ask for another command
+			std::cout << "What can I do for you today?" << std::endl;	
+			getline(std::cin, inputCmd); // ask for another command
+		}
 	}
 }
 
@@ -37,17 +39,100 @@ Bank::~Bank(){
 	//delete checking account
 }
 
-void Bank::login(){
-	// Check for previous save file
+bool Bank::login(){
+	// ASSIGNS A CURRENT USER
 	
-	// Save found
-		// Load file
-	// Save not found
-		// make new user
+
+	std::string input = "";
+	std::cout << "Are you a returning user?" << std::endl;
+	getline(std::cin, input);
+
+	// Check for previous save file
+	if(input.find("yes") != std::string::npos){
+		std::string fName = ""; // first name
+		std::string lName = ""; // last name
+		std::string password; // number specific to person
+		
+		// Verify valid name entered
+		while(fName == "" || lName == ""){
+			std::cout << "What is your Full Name? (FORMAT: FirstName LastName)" << std::endl;
+			std::cin >> fName;
+			std::cin >> lName;
+		}
+		std::cout << "What is your password?" << std::endl;
+		std::cin.ignore();
+		std::cin >> password;
+		
+		// FIND SAVE
+		std::ifstream inputStream; // allows opening and reading files
+		User* tempUser = new User(fName, lName, password); // used to make a pass key for real save file
+		
+		inputStream.open(tempUser->getKey()); // retrieve pass key for save file from User class
+		
+		delete tempUser; // deallocate temporary user
+
+		if(inputStream.is_open()){
+		// Save found
+			// Load file
+			std::string userinfo;
+			getline(inputStream, userinfo);
+			
+			currentUser = User(userinfo);
+		
+		}
+		else{
+		// Save not found
+			// make new user
+			std::cout << "\nERROR: User save file not found!" << std::endl;
+			std::cout << "Would you like to make a new account?" << std::endl;
+			
+			std::string tempInput = "";
+			getline(std::cin, tempInput);
+			
+			if(tempInput.find("yes") != std::string::npos){
+				// Make new user
+				currentUser = makeNewUser();
+			}
+			else{
+				// Exit program
+				std::cout << "We hope to see you again!" << std::endl;
+				return false;
+			}
+		
+		}
+		
+	}
+	else{
+	// New user
+		// make new account
+		currentUser = makeNewUser();
+	}
+	return true;
 }
 
 void Bank::logout(){
 	// Save user information
+}
+
+User Bank::makeNewUser(){
+	// RETURNS A NEW USER
+	User tempUser = User();
+
+	std::string firstName;
+	std::string lastName;
+	std::string password;
+	// Ask for required information
+	
+	// First name
+	// Last name
+	
+	// Address
+	
+	// Date
+	
+	// Password
+	
+	return tempUser;
 }
 
 void Bank::NewCheckingAccount(){

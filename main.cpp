@@ -76,7 +76,7 @@ void testAccount(){
 	std::cout << "1: " << testAccount.getBalance() << std::endl;
 	std::cout << testAccount.getOwner()->toString() << std::endl;
 
-	User* tempOwner = new User("Bob", "Smith");
+	User* tempOwner = new User("Bob", "Smith", "password");
 	testAccount.setOwner(tempOwner);
 	std::cout << "2: " << testAccount.getBalance() << std::endl;
 	std::cout << testAccount.getOwner()->toString() << std::endl;
