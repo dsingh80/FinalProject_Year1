@@ -16,7 +16,7 @@ Date.o: Date.cpp Date.h
 Address.o: Address.cpp Address.h
 	$(CC) $(CFLAGS) Address.cpp Address.h
 valgrind: BankRunner
-	valgrind --leak-check=full ./BankRunner
+	valgrind --leak-check=full --track-origins=yes ./BankRunner
 run: BankRunner
 	./BankRunner
 clean:

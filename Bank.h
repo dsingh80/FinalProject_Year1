@@ -14,7 +14,7 @@ class Bank{
 		bool login(); // retrieve user info
 		void logout(); // save user info
 
-		User makeNewUser();
+		void makeNewUser();
 
 		void NewCheckingAccount(); // make new checking account
 		void CloseCheckingAccount(); // remove checking account
@@ -22,7 +22,7 @@ class Bank{
 		void depositMoney(); // put in money. Checks if the user has any money to deposit
 		
 	private:
-		User currentUser; // owner of current accounts
+		User* currentUser; // owner of current accounts
 		CheckingAccount* checking; // Checking account
 		double pocketCash; // cash on hand
 		

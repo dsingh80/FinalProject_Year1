@@ -30,6 +30,15 @@ Bank::Bank(){
 			std::cout << "What can I do for you today?" << std::endl;	
 			getline(std::cin, inputCmd); // ask for another command
 		}
+
+		/* DEALLOCATE ALL HEAP MEMORY. PROGRAM OVER */
+		
+		delete currentUser;
+
+
+	}
+	else{
+		std::cout << "We hope to see you again!" << std::endl;
 	}
 }
 
@@ -48,7 +57,7 @@ bool Bank::login(){
 	getline(std::cin, input);
 
 	// Check for previous save file
-	if(input.find("yes") != std::string::npos){
+	if(input == "yes" || input == "Yes" || input == "YES"){
 		std::string fName = ""; // first name
 		std::string lName = ""; // last name
 		std::string password; // number specific to person
@@ -77,7 +86,7 @@ bool Bank::login(){
 			std::string userinfo;
 			getline(inputStream, userinfo);
 			
-			currentUser = User(userinfo);
+			currentUser = new User(userinfo);
 		
 		}
 		else{
@@ -85,38 +94,45 @@ bool Bank::login(){
 			// make new user
 			std::cout << "\nERROR: User save file not found!" << std::endl;
 			std::cout << "Would you like to make a new account?" << std::endl;
-			
+		
+			// "Clear" previous input	
+			std::cin.ignore();
 			std::string tempInput = "";
-			getline(std::cin, tempInput);
-			
-			if(tempInput.find("yes") != std::string::npos){
+			getline(std::cin, tempInput); // get answer to question
+
+			std::cout << "TempInput: " << tempInput << std::endl;
+
+			if(tempInput == "yes" || tempInput == "Yes" || tempInput == "YES"){ // check if they said yes
 				// Make new user
-				currentUser = makeNewUser();
+				makeNewUser();
+				return true;
 			}
 			else{
 				// Exit program
-				std::cout << "We hope to see you again!" << std::endl;
 				return false;
 			}
 		
 		}
-		
+	
+		inputStream.close();	
 	}
 	else{
 	// New user
 		// make new account
-		currentUser = makeNewUser();
+		makeNewUser();
+		return true;
 	}
-	return true;
+	return false;
 }
 
 void Bank::logout(){
 	// Save user information
 }
 
-User Bank::makeNewUser(){
-	// RETURNS A NEW USER
-	User tempUser = User();
+void Bank::makeNewUser(){
+	// PROMPTS USER FOR INFORMATION TO CREATE NEW USER
+
+	currentUser = new User();
 
 	std::string firstName;
 	std::string lastName;
@@ -132,7 +148,6 @@ User Bank::makeNewUser(){
 	
 	// Password
 	
-	return tempUser;
 }
 
 void Bank::NewCheckingAccount(){
