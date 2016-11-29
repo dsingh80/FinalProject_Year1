@@ -100,8 +100,6 @@ bool Bank::login(){
 			std::string tempInput = "";
 			getline(std::cin, tempInput); // get answer to question
 
-			std::cout << "TempInput: " << tempInput << std::endl;
-
 			if(tempInput == "yes" || tempInput == "Yes" || tempInput == "YES"){ // check if they said yes
 				// Make new user
 				makeNewUser();
@@ -118,9 +116,23 @@ bool Bank::login(){
 	}
 	else{
 	// New user
-		// make new account
-		makeNewUser();
-		return true;
+		std::cout << "Would you like to make a new account?" << std::endl;
+	
+		// "Clear" previous input	
+		std::cin.ignore();
+		std::string tempInput = "";
+		getline(std::cin, tempInput); // get answer to question
+
+		std::cout << "tempInput: |" << tempInput << std::endl;
+		if(tempInput == "yes" || tempInput == "Yes" || tempInput == "YES"){ // check if they said yes
+			// Make new user
+			makeNewUser();
+			return true;
+		}
+		else{
+			// Exit program
+			return false;
+		}
 	}
 	return false;
 }
@@ -133,7 +145,7 @@ void Bank::makeNewUser(){
 	// PROMPTS USER FOR INFORMATION TO CREATE NEW USER
 
 	currentUser = new User();
-
+	std::cout << "Inside MakeNewUser()" << std::endl;
 	std::string firstName;
 	std::string lastName;
 	std::string password;
