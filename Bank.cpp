@@ -119,7 +119,6 @@ bool Bank::login(){
 		std::cout << "Would you like to make a new account?" << std::endl;
 	
 		// "Clear" previous input	
-		std::cin.ignore();
 		std::string tempInput = "";
 		getline(std::cin, tempInput); // get answer to question
 
