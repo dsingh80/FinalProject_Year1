@@ -11,6 +11,7 @@ class Address{
 		~Address(); //empty destructor
 		
 		std::string toString(); // return formatted address
+		std::string getSaveInfo(); // get info to write to save file
 
 		//ACCESSOR METHODS
 		std::string getLineOne();

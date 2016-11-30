@@ -1,26 +1,18 @@
 #include "Account.h"
 #include <string>
+#include <iostream>
 
 Account::Account(){
 	accountType = "NULL";
-	owner = new User();
 	balance = 0.00;
 }
 
-Account::Account(std::string newType, User* firstUser){
+Account::Account(std::string newType){
 	accountType = newType;
-	setOwner(firstUser);
 }
 
 Account::~Account(){
 	//Deallocate heap memory
-	
-	//Delete owner
-	delete owner;
-}
-
-double Account::getBalance(){
-	return balance;
 }
 
 void Account::deposit(double depAmount){
@@ -50,14 +42,11 @@ void Account::withdraw(double witAmount){
 	}
 }
 
-User* Account::getOwner(){
-	/* GET OWNER INFO */
-	return owner;
+// BALANCE //
+double Account::getBalance(){
+	return balance;
 }
 
-void Account::setOwner(User* newOwner){
-	/* GIVE CONTROL TO NEW USER */
-	delete owner; // deallocate old owner
-	owner = newOwner; // point to new owner
-	//*(owner) = *(newOwner); // use copy constructors to make new owner
+void Account::setBalance(double newBal){
+	balance = newBal;
 }

@@ -2,6 +2,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 Bank::Bank(){
 
@@ -9,9 +10,14 @@ Bank::Bank(){
 	if(loginSuccessful == true){
 		// LOGGED IN SUCCESSFULLY
 		double pocketCash = 0.0;
-
+		std::string tempCash;
+		std::stringstream convertStream;
 		// ASK FOR AMOUNT OF MONEY THAT USER HAS ON HAND
+		std::cout << "How much money do you have on you at this moment?" << std::endl;
+		std::cin >> tempCash;
 		
+		convertStream << tempCash;
+		convertStream >> pocketCash;
 
 		std::string inputCmd;
 		bool keepGoing = true;
@@ -25,16 +31,26 @@ Bank::Bank(){
 			if(inputCmd=="quit" || inputCmd == "exit"){
 				keepGoing = false;
 				break;
-			}	
+			}
+			else if(inputCmd=="balance" || inputCmd == "check balance"){
+				std::cout << currentUser -> getCheckingAccount() -> getBalance();
+			}
+			else if(inputCmd == "deposit"){
+				depositMoney();
+			}
+			else if(inputCmd == "withdraw"){
+				withdrawMoney();
+			}
 			
 			std::cout << "What can I do for you today?" << std::endl;	
 			getline(std::cin, inputCmd); // ask for another command
 		}
 
-		/* DEALLOCATE ALL HEAP MEMORY. PROGRAM OVER */
-		
-		delete currentUser;
+		//save all info
+		logout();
 
+		/* DEALLOCATE ALL HEAP MEMORY. PROGRAM OVER */
+		delete currentUser;
 
 	}
 	else{
@@ -83,11 +99,11 @@ bool Bank::login(){
 		if(inputStream.is_open()){
 		// Save found
 			// Load file
-			std::string userinfo;
-			getline(inputStream, userinfo);
+			std::string info;
+			getline(inputStream, info);
+
+			currentUser = new User(info);
 			
-			currentUser = new User(userinfo);
-		
 		}
 		else{
 		// Save not found
@@ -145,30 +161,61 @@ void Bank::makeNewUser(){
 
 	currentUser = new User();
 	std::cout << "Inside MakeNewUser()" << std::endl;
-	std::string firstName;
-	std::string lastName;
+	std::string firstName = "";
+	std::string lastName = "";
 	std::string password;
+	std::string lineOne, lineTwo, city, state, zipCode;
+	std::string birthDate;
+		
+	std::stringstream addressStream;
 	// Ask for required information
 	
-	// First name
-	// Last name
-	
+	// First Name
+	while(firstName == ""){
+		std::cout << "What is your First Name?" << std::endl;
+		std::cin >> firstName;
+	}
+
+	// Last Name
+	while(lastName == ""){
+		std::cout << "What is your Last Name?" << std::endl;
+		std::cin >> lastName;
+	}
+
 	// Address
+	std::cin.ignore();
+	std::cout << "What is the first line of your address? (Ex. 123 Mayberry Lane)" << std::endl;
+	getline(std::cin, lineOne);
+	
+	std::cin.ignore();
+	std::cout << "What is the second line of your address? (Can leave blank)" << std::endl;
+	getline(std::cin, lineTwo);
+
+	std::cin.ignore();
+	std::cout << "What city do you live in?" << std::endl;
+	std::cin >> city;
+	
+	std::cin.ignore();
+	std::cout << "What state do you live in?" << std::endl;
+	std::cin >> state;
+	
+	std::cin.ignore();
+	std::cout << "What is your zipCode?" << std::endl;
+	std::cin >> zipCode;
+
+	addressStream << lineOne << "," << lineTwo << "," << city << "," << state << "," << zipCode << ",";
 	
 	// Date
-	
-	// Password
-	
-}
+	std::cin.ignore();
+	std::cout << "What is your date of birth following the form MM/DD/YYYY? (Ex. 01/22/1994 for January 22, 1994)" << std::endl;
+	std::cin >> birthDate;
 
-void Bank::NewCheckingAccount(){
-	// Open a new checking account
-}
-
-void Bank::CloseCheckingAccount(){
-	// Close user's checking account
+	// Assign values
+	currentUser -> setFirstName(firstName);
+	currentUser -> setLastName(lastName);
+	currentUser -> setAddress(addressStream.str());
+	currentUser -> setBirthDate(birthDate);
 	
-	// Withdraw any leftover balance
 }
 
 void Bank::depositMoney(){
@@ -176,6 +223,24 @@ void Bank::depositMoney(){
 	
 	// Check if user has money on hand to deposit
 		//Deposit money
+		//Log transaction
 	// Not enough money to deposit
+		//Ask if they want to deposit all available funds
+		//Log transaction
 }
 
+void Bank::withdrawMoney(){
+	// Takes money out of account
+	
+	// Check if money is available in account
+	 	//Withdraw money
+	 	//Log transaction
+	// Not enough money in account
+		//Tell full balance
+		//Ask if they want to withdraw full balance
+		//Log transaction
+}
+
+std::string Bank::getTransactionLog(){
+	return transactionLog;
+}

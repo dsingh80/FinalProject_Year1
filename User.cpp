@@ -1,4 +1,5 @@
 #include "User.h"
+#include "CheckingAccount.h"
 #include <string>
 #include <sstream>
 
@@ -10,6 +11,8 @@ User::User(){
 
 	birthDate = new Date();
 	address = new Address();
+
+	checkingAcc = new CheckingAccount();
 
 	setKey(); // calculate password key
 }
@@ -23,6 +26,8 @@ User::User(std::string newFirstName, std::string newLastName, std::string newPas
 	birthDate = new Date();
 	address = new Address();
 	
+	checkingAcc = new CheckingAccount();
+
 	setKey();
 }
 
@@ -45,7 +50,9 @@ User::User(std::string userInfo){
 
 	std::string tempAddressInfo = userInfo.substr(0, userInfo.find("|"));
 	address = new Address(tempAddressInfo);
+	userInfo = userInfo.substr(userInfo.find("|"));
 
+	setCheckingAccount(userInfo);
 	setKey();
 }
 
@@ -58,6 +65,7 @@ User::User(const User& otherUser){
 	birthDate = otherUser.birthDate;
 	address = otherUser.address;
 	
+	checkingAcc = otherUser.checkingAcc;
 	setKey();
 }
 
@@ -66,6 +74,7 @@ User::~User(){
 
 	delete birthDate;
 	delete address;
+	delete checkingAcc;
 }
 
 
@@ -100,6 +109,21 @@ std::string User::getFullName(){
 	return concatStream.str();
 }
 
+std::string User::getSaveInfo(){
+	// Return info to write to save file
+	
+	std::stringstream saveInfo;
+
+	saveInfo << getFirstName() << "|";
+	saveInfo << getLastName() << "|";
+	saveInfo << getPassword() << "|";
+	saveInfo << getBirthDateObject()->toString() << "|";
+	saveInfo << getAddressObject()->toString() << "|";
+	saveInfo << getCheckingAccount()->getSaveInfo();
+
+	saveInfo << "\n";
+	return saveInfo.str();
+}
 
 void User::setKey(){
 	/* CALCULATE PASSWORD KEY */
@@ -146,7 +170,10 @@ std::string User::getLastName(){
 	return lastName;
 }
 
-
+// PASSWORD //
+std::string User::getPassword(){
+	return password;
+}
 
 // BIRTH DATE //
 void User::setBirthDate(Date* tempDate){
@@ -184,4 +211,18 @@ std::string User::getAddress(){
 
 Address* User::getAddressObject(){
 	return address;
+}
+
+// CHECKING ACCOUNT //
+void User::setCheckingAccount(CheckingAccount* newChecking){
+	*checkingAcc = *newChecking;
+}
+
+void User::setCheckingAccount(std::string accinfo){
+	delete checkingAcc;
+	checkingAcc = new CheckingAccount(accinfo);
+}
+
+CheckingAccount* User::getCheckingAccount(){
+	return checkingAcc;
 }

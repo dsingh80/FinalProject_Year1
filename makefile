@@ -7,9 +7,9 @@ Bank.o: Bank.cpp Bank.h CheckingAccount.o
 	$(CC) $(CFLAGS) Bank.cpp Bank.h
 CheckingAccount.o: CheckingAccount.cpp CheckingAccount.h Account.o
 	$(CC) $(CFLAGS) CheckingAccount.cpp CheckingAccount.h
-Account.o: Account.cpp Account.h User.o
+Account.o: Account.cpp Account.h
 	$(CC) $(CFLAGS) Account.cpp Account.h
-User.o: User.cpp User.h Date.o Address.o
+User.o: User.cpp User.h Date.o Address.o CheckingAccount.o
 	$(CC) $(CFLAGS) User.cpp User.h
 Date.o: Date.cpp Date.h
 	$(CC) $(CFLAGS) Date.cpp Date.h

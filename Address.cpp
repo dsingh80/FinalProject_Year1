@@ -68,6 +68,16 @@ std::string Address::toString(){
 	return formattedString;
 }
 
+std::string Address::getSaveInfo(){
+	std::stringstream saveInfo;
+	
+	saveInfo << getLineOne() << ",";
+	saveInfo << getLineTwo() << ",";
+	saveInfo << getCity() << ",";
+	saveInfo << getState() << ",";
+
+	return saveInfo.str();
+}
 // ACCESSOR METHODS //
 std::string Address::getLineOne(){
 	return Address::lineOne;

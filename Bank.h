@@ -16,15 +16,14 @@ class Bank{
 
 		void makeNewUser();
 
-		void NewCheckingAccount(); // make new checking account
-		void CloseCheckingAccount(); // remove checking account
-
 		void depositMoney(); // put in money. Checks if the user has any money to deposit
-		
+		void withdrawMoney(); // checks if account has balance required
+
+		std::string getTransactionLog(); // returns log of all transactions
 	private:
 		User* currentUser; // owner of current accounts
-		CheckingAccount* checking; // Checking account
-		double pocketCash; // cash on hand
+		std::string transactionLog = ""; // holds all information on transactions taken in current session
+		double pocketCash = 0.0; // cash on hand
 		
 };
 

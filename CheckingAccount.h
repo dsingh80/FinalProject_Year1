@@ -7,11 +7,11 @@
 class CheckingAccount : public Account {
 	public:
 		CheckingAccount();
-		CheckingAccount(User*); // initialize with an owner
+		CheckingAccount(std::string); // initialize with information and owner
 		~CheckingAccount();
 		
 		std::string getType();
-
+		std::string getSaveInfo(); // get info to write to save file
 	private:
 		
 		

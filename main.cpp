@@ -8,7 +8,6 @@
 void testUser();
 void testDate();
 void testAddress();
-void testAccount(); // Test account class & Checking Account
 
 
 int main(){
@@ -16,7 +15,6 @@ int main(){
 	//testAddress();
 	//testDate();
 	//testUser();
-	//testAccount();
 	Bank();
 	return 0;
 }
@@ -69,24 +67,4 @@ void testAddress(){
 	
 }
 
-void testAccount(){
-	CheckingAccount testAccount = CheckingAccount();
-	std::cout << "=====Test Account=====" << std::endl;
-	
-	std::cout << "1: " << testAccount.getBalance() << std::endl;
-	std::cout << testAccount.getOwner()->toString() << std::endl;
 
-	User* tempOwner = new User("Bob", "Smith", "password");
-	testAccount.setOwner(tempOwner);
-	std::cout << "2: " << testAccount.getBalance() << std::endl;
-	std::cout << testAccount.getOwner()->toString() << std::endl;
-
-	testAccount.deposit(double(100.25));
-	std::cout << "3: " << testAccount.getBalance() << std::endl;
-	std::cout << testAccount.getOwner()->toString() << std::endl;
-	
-	testAccount.withdraw(double(10.25));
-	std::cout << "4: " << testAccount.getBalance() << std::endl;
-	std::cout << testAccount.getOwner()->toString() << std::endl;	
-	
-}
