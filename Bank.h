@@ -20,6 +20,8 @@ class Bank{
 		void withdrawMoney(); // checks if account has balance required
 
 		std::string getTransactionLog(); // returns log of all transactions
+		double stringToDouble(std::string); // converts to a double
+
 	private:
 		User* currentUser; // owner of current accounts
 		std::string transactionLog = ""; // holds all information on transactions taken in current session

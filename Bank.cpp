@@ -9,15 +9,13 @@ Bank::Bank(){
 	bool loginSuccessful = login(); // retrieve old information or make new user
 	if(loginSuccessful == true){
 		// LOGGED IN SUCCESSFULLY
-		double pocketCash = 0.0;
+		pocketCash = 0.0;
 		std::string tempCash;
-		std::stringstream convertStream;
 		// ASK FOR AMOUNT OF MONEY THAT USER HAS ON HAND
 		std::cout << "How much money do you have on you at this moment?" << std::endl;
 		std::cin >> tempCash;
-		
-		convertStream << tempCash;
-		convertStream >> pocketCash;
+	
+		pocketCash = stringToDouble(tempCash);	
 
 		std::string inputCmd;
 		bool keepGoing = true;
@@ -92,7 +90,7 @@ bool Bank::login(){
 		}
 		std::cout << "What is your password?" << std::endl;
 		std::cin.ignore();
-		std::cin >> password;
+		getline(std::cin, password);
 		
 		// FIND SAVE
 		std::ifstream inputStream; // allows opening and reading files
@@ -241,12 +239,64 @@ void Bank::makeNewUser(){
 void Bank::depositMoney(){
 	// Put money into account
 	
+	double depAmount = 0.0;
+	std::string tempDep;
+	std::cout << "How much money would you like to deposit?" << std::endl;
+	
+	while(depAmount<=0){
+		std::cin >> tempDep;
+		depAmount = stringToDouble(tempDep);
+	}
 	// Check if user has money on hand to deposit
+	
+	std::cout << "\tPocket Cash: " << pocketCash << std::endl;
+	std::cout << "\tDepAmount: " << depAmount << std::endl;
+	if(pocketCash>=depAmount){
 		//Deposit money
+		currentUser->getCheckingAccount()->deposit(depAmount);
+		pocketCash = pocketCash - depAmount;
+
 		//Log transaction
+		std::ofstream logStream;
+		logStream.open(currentUser->getLogKey());
+		if(logStream.is_open()){
+			logStream << "Deposited $" << depAmount << " into checking account.\tNew Balance: $" << currentUser->getCheckingAccount()->getBalance() << std::endl;
+		}
+		else{
+			std::cout << "Failed to log transaction" << std::endl;
+		}
+			
+		logStream.close(); // write log
+	}
+	else{
 	// Not enough money to deposit
+		std::string input;
 		//Ask if they want to deposit all available funds
-		//Log transaction
+		std::cout << "Insufficient funds to deposit. Would you like to deposit all of the money on hand into your checking account?" << std::endl;
+		std::cin >> input;
+		
+		if(input == "yes" || input == "Yes" || input == "YES"){
+			//Deposit money
+			currentUser->getCheckingAccount()->deposit(pocketCash);
+			pocketCash = 0;
+			
+			//Log transaction
+			std::ofstream logStream;
+			logStream.open(currentUser->getLogKey());
+			if(logStream.is_open()){
+				logStream << "Deposited $" << depAmount << " into checking account.\tNew Balance: $" << currentUser->getCheckingAccount()->getBalance() << std::endl;
+			}
+			else{
+				std::cout << "Failed to log transaction" << std::endl;
+			}
+				
+			logStream.close(); // write log
+
+		}
+		else{
+			std::cout << "Deposit cancelled!" << std::endl;
+		}
+	}
 }
 
 void Bank::withdrawMoney(){
@@ -259,8 +309,77 @@ void Bank::withdrawMoney(){
 		//Tell full balance
 		//Ask if they want to withdraw full balance
 		//Log transaction
+
+	double witAmount = 0.0;
+	std::string tempWit;
+	std::cout << "How much money would you like to withdraw?" << std::endl;
+	
+	while(witAmount<=0){
+		std::cin >> tempWit;
+		witAmount = stringToDouble(tempWit);
+	}
+	// Check if user has money on hand to deposit
+	if(currentUser->getCheckingAccount()->getBalance() >= witAmount){
+		//Deposit money
+		currentUser->getCheckingAccount()->withdraw(witAmount);
+		pocketCash = pocketCash + witAmount;
+
+		//Log transaction
+		std::ofstream logStream;
+		logStream.open(currentUser->getLogKey());
+		if(logStream.is_open()){
+			logStream << "Withdrew $" << witAmount << " from checking account.\tNew Balance: $" << currentUser->getCheckingAccount()->getBalance() << std::endl;
+		}
+		else{
+			std::cout << "Failed to log transaction" << std::endl;
+		}
+			
+		logStream.close(); // write log
+	}
+	else{
+	// Not enough money to deposit
+		std::string input;
+		//Ask if they want to deposit all available funds
+		std::cout << "Insufficient funds available to withdraw. Would you like to withdraw all of the money from your checking account?" << std::endl;
+		std::cout << "Current Balance: $" << currentUser->getCheckingAccount()->getBalance() << std::endl;
+		
+		std::cin >> input;
+		
+		if(input == "yes" || input == "Yes" || input == "YES"){
+			//Deposit money
+			currentUser->getCheckingAccount()->withdraw(currentUser->getCheckingAccount()->getBalance());
+			pocketCash = pocketCash + witAmount;
+			
+			//Log transaction
+			std::ofstream logStream;
+			logStream.open(currentUser->getLogKey());
+			if(logStream.is_open()){
+				logStream << "Withdrew $" << witAmount << " from checking account.\tNew Balance: $" << currentUser->getCheckingAccount()->getBalance() << std::endl;
+			}
+			else{
+				std::cout << "Failed to log transaction" << std::endl;
+			}
+				
+			logStream.close(); // write log
+
+		}
+		else{
+			std::cout << "Withdraw cancelled!" << std::endl;
+		}
+	}
 }
 
 std::string Bank::getTransactionLog(){
 	return transactionLog;
+}
+
+double Bank::stringToDouble(std::string tempDouble){
+	std::stringstream convertStream;
+	convertStream << tempDouble;
+
+	double actualDouble;
+
+	convertStream >> actualDouble;
+
+	return actualDouble;
 }

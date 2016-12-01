@@ -30,7 +30,9 @@ class User{
 		//ACCESSORS & MODIFIERS
 		void setKey(); // create passkey for save file
 		std::string getKey(); // return passkey for save file
-		
+	
+		std::string getLogKey(); // set by setKey();
+	
 		void setFirstName(std::string);
 		std::string getFirstName();
 
@@ -66,7 +68,8 @@ class User{
 		//Used to access saved information
 		//NOT USER INPUTTED
 		std::string key; // calculated after first and last name are known;
-	
+		std::string logKey; // used to access statement
+			
 		CheckingAccount* checkingAcc;	
 		void setPassword(); // calculate password
 };

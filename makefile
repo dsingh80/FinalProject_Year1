@@ -19,8 +19,13 @@ valgrind: BankRunner
 	valgrind --leak-check=full --track-origins=yes ./BankRunner
 run: BankRunner
 	./BankRunner
+deepclean:
+	rm .*.sav
+	rm .*.log
+	rm *.gch
+	rm *.o
+	rm BankRunner
 clean:
 	rm *.gch
 	rm *.o
-	rm *.sav
 	rm BankRunner

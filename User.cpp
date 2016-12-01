@@ -141,11 +141,25 @@ void User::setKey(){
 	// Use hashing to jumble the key
 	//key = std::hash<std::string>()(tempKey);
 	key = tempKey;
+	
+	concatStream.str(std::string()); // clear the concatStream
+	
+	concatStream << ".";
+	concatStream << firstName << password << lastName << "LOG";
+	concatStream << ".log";
+	
+	tempKey = concatStream.str();
+	
+	logKey = tempKey;
 }
 
 std::string User::getKey(){
 	/* GET PASS KEY FOR SAVE FILE */
 	return key;
+}
+
+std::string User::getLogKey(){
+	return logKey;
 }
 
 
