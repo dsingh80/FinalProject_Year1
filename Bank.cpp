@@ -41,6 +41,12 @@ Bank::Bank(){
 			else if(inputCmd == "withdraw"){
 				withdrawMoney();
 			}
+			else if(inputCmd == "getKey"){
+				std::cout << currentUser -> getKey() << std::endl;
+			}
+			else{
+				std::cout << "Invalid command!" << std::endl;
+			}
 			
 			std::cout << "What can I do for you today?" << std::endl;	
 			getline(std::cin, inputCmd); // ask for another command
@@ -91,7 +97,7 @@ bool Bank::login(){
 		// FIND SAVE
 		std::ifstream inputStream; // allows opening and reading files
 		User* tempUser = new User(fName, lName, password); // used to make a pass key for real save file
-		
+		std::cout << "Key: " << tempUser -> getKey() << std::endl;	
 		inputStream.open(tempUser->getKey()); // retrieve pass key for save file from User class
 		
 		delete tempUser; // deallocate temporary user
@@ -103,7 +109,8 @@ bool Bank::login(){
 			getline(inputStream, info);
 
 			currentUser = new User(info);
-			
+			inputStream.close();
+			return true;	
 		}
 		else{
 		// Save not found
@@ -154,6 +161,15 @@ bool Bank::login(){
 
 void Bank::logout(){
 	// Save user information
+	std::ofstream outputStream;
+
+	outputStream.open(currentUser->getKey());
+	
+	if(outputStream.is_open()){
+		outputStream << currentUser -> getSaveInfo();
+	}
+	
+	outputStream.close();
 }
 
 void Bank::makeNewUser(){
@@ -210,12 +226,16 @@ void Bank::makeNewUser(){
 	std::cout << "What is your date of birth following the form MM/DD/YYYY? (Ex. 01/22/1994 for January 22, 1994)" << std::endl;
 	std::cin >> birthDate;
 
+	std::cin.ignore();
+	std::cout << "Please create a password: ";
+	getline(std::cin, password);
+
 	// Assign values
 	currentUser -> setFirstName(firstName);
 	currentUser -> setLastName(lastName);
 	currentUser -> setAddress(addressStream.str());
 	currentUser -> setBirthDate(birthDate);
-	
+	currentUser -> setPassword(password);
 }
 
 void Bank::depositMoney(){

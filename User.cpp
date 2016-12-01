@@ -52,6 +52,7 @@ User::User(std::string userInfo){
 	address = new Address(tempAddressInfo);
 	userInfo = userInfo.substr(userInfo.find("|"));
 
+	checkingAcc = new CheckingAccount();
 	setCheckingAccount(userInfo);
 	setKey();
 }
@@ -118,7 +119,7 @@ std::string User::getSaveInfo(){
 	saveInfo << getLastName() << "|";
 	saveInfo << getPassword() << "|";
 	saveInfo << getBirthDateObject()->toString() << "|";
-	saveInfo << getAddressObject()->toString() << "|";
+	saveInfo << getAddressObject()->getSaveInfo() << "|";
 	saveInfo << getCheckingAccount()->getSaveInfo();
 
 	saveInfo << "\n";
@@ -127,19 +128,23 @@ std::string User::getSaveInfo(){
 
 void User::setKey(){
 	/* CALCULATE PASSWORD KEY */
-	
+	std::string tempKey = "";
 	//concat(firstName, password, lastName);
 	std::stringstream concatStream;
+	
+	concatStream << ".";
 	concatStream << firstName << password << lastName;
-	
-	key = concatStream.str();
-	
-	// Use symmetric hashing to jumble the key
+	concatStream << ".sav";
+
+	tempKey = concatStream.str();
+
+	// Use hashing to jumble the key
+	//key = std::hash<std::string>()(tempKey);
+	key = tempKey;
 }
 
 std::string User::getKey(){
 	/* GET PASS KEY FOR SAVE FILE */
-	
 	return key;
 }
 
@@ -153,6 +158,7 @@ std::string User::getKey(){
 // FIRST NAME //
 void User::setFirstName(std::string tempFirstName){
 	firstName = tempFirstName;
+	setKey();
 }
 
 std::string User::getFirstName(){
@@ -164,6 +170,7 @@ std::string User::getFirstName(){
 // LAST NAME //
 void User::setLastName(std::string tempLastName){
 	lastName = tempLastName;
+	setKey();
 }
 
 std::string User::getLastName(){
@@ -173,6 +180,11 @@ std::string User::getLastName(){
 // PASSWORD //
 std::string User::getPassword(){
 	return password;
+}
+
+void User::setPassword(std::string newPass){
+	password = newPass;
+	setKey();
 }
 
 // BIRTH DATE //

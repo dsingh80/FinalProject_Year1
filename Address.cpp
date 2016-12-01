@@ -1,6 +1,6 @@
 #include "Address.h"
 #include <sstream>
-
+#include <iostream>
 Address::Address(){
 	//Use modifier methods separately to construct an address
 	lineOne = "Line One";
@@ -13,22 +13,21 @@ Address::Address(){
 Address::Address(std::string fullInfo){
 	/* EXTRACT INFORMATION CONSTRUCTOR */
 	// ',' is the delimiter
-	
 	//Extract lineOne
 	lineOne = fullInfo.substr(0, fullInfo.find(","));
-	fullInfo = fullInfo.substr(fullInfo.find(","));
+	fullInfo = fullInfo.substr(fullInfo.find(",")+1);
 	
 	//Extract lineTwo
 	lineTwo = fullInfo.substr(0, fullInfo.find(","));
-	fullInfo = fullInfo.substr(fullInfo.find(","));	
+	fullInfo = fullInfo.substr(fullInfo.find(",")+1);	
 
 	//Extract city
 	city = fullInfo.substr(0, fullInfo.find(","));
-	fullInfo = fullInfo.substr(fullInfo.find(","));
+	fullInfo = fullInfo.substr(fullInfo.find(",")+1);
 	
-	//Extract state
+	
 	state = fullInfo.substr(0, fullInfo.find(","));
-	fullInfo = fullInfo.substr(fullInfo.find(","));
+	fullInfo = fullInfo.substr(fullInfo.find(",")+1);
 	
 	//convert string to int
 	std::stringstream convertStream;

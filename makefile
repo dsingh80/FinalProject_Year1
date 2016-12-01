@@ -22,4 +22,5 @@ run: BankRunner
 clean:
 	rm *.gch
 	rm *.o
+	rm *.sav
 	rm BankRunner

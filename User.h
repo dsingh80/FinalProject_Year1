@@ -37,6 +37,7 @@ class User{
 		void setLastName(std::string);
 		std::string getLastName();
 		
+		void setPassword(std::string);
 		std::string getPassword();
 		
 		void setBirthDate(Date*); // calls Date copy constructor
