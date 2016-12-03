@@ -3,9 +3,10 @@
 #include <iostream>
 
 Account::Account(){
-	accountType = "NULL";
+	accountType = "";
 	balance = 0.00;
 }
+
 
 Account::Account(std::string newType){
 	accountType = newType;
@@ -20,7 +21,7 @@ void Account::deposit(double depAmount){
 	balance = balance + depAmount;
 	
 	//Tell them new balance
-	std::cout << "Deposited $" << depAmount << " into " << accountType << " account." << std::endl;
+	std::cout << "Deposited $" << depAmount << " into account." << std::endl;
 	std::cout << "New Balance: $" << getBalance() << std::endl;
 
 }
@@ -49,4 +50,8 @@ double Account::getBalance(){
 
 void Account::setBalance(double newBal){
 	balance = newBal;
+}
+
+std::string Account::getType(){
+	return accountType;
 }

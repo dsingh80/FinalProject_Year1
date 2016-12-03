@@ -22,6 +22,7 @@ Bank::Bank(){
 		
 		// Get a valid command to do
 		std::cout << "What can I do for you today?" << std::endl;
+		std::cin.ignore();
 		getline(std::cin, inputCmd);
 
 		while(keepGoing){
@@ -31,7 +32,7 @@ Bank::Bank(){
 				break;
 			}
 			else if(inputCmd=="balance" || inputCmd == "check balance"){
-				std::cout << currentUser -> getCheckingAccount() -> getBalance();
+				std::cout << "$" << currentUser -> getCheckingAccount() -> getBalance() << std::endl;
 			}
 			else if(inputCmd == "deposit"){
 				depositMoney();
@@ -258,7 +259,7 @@ void Bank::depositMoney(){
 
 		//Log transaction
 		std::ofstream logStream;
-		logStream.open(currentUser->getLogKey());
+		logStream.open(currentUser->getLogKey(), std::fstream::app); // append log
 		if(logStream.is_open()){
 			logStream << "Deposited $" << depAmount << " into checking account.\tNew Balance: $" << currentUser->getCheckingAccount()->getBalance() << std::endl;
 		}
@@ -282,7 +283,7 @@ void Bank::depositMoney(){
 			
 			//Log transaction
 			std::ofstream logStream;
-			logStream.open(currentUser->getLogKey());
+			logStream.open(currentUser->getLogKey(), std::fstream::app);
 			if(logStream.is_open()){
 				logStream << "Deposited $" << depAmount << " into checking account.\tNew Balance: $" << currentUser->getCheckingAccount()->getBalance() << std::endl;
 			}
@@ -326,7 +327,7 @@ void Bank::withdrawMoney(){
 
 		//Log transaction
 		std::ofstream logStream;
-		logStream.open(currentUser->getLogKey());
+		logStream.open(currentUser->getLogKey(), std::fstream::app);
 		if(logStream.is_open()){
 			logStream << "Withdrew $" << witAmount << " from checking account.\tNew Balance: $" << currentUser->getCheckingAccount()->getBalance() << std::endl;
 		}
@@ -352,7 +353,7 @@ void Bank::withdrawMoney(){
 			
 			//Log transaction
 			std::ofstream logStream;
-			logStream.open(currentUser->getLogKey());
+			logStream.open(currentUser->getLogKey(), std::fstream::app);
 			if(logStream.is_open()){
 				logStream << "Withdrew $" << witAmount << " from checking account.\tNew Balance: $" << currentUser->getCheckingAccount()->getBalance() << std::endl;
 			}

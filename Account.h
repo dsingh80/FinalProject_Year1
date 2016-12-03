@@ -11,9 +11,7 @@ class Account{
 		~Account();
 
 		// Add abstract class framework
-		virtual std::string getType() = 0; // tells what type of account this is	
 		virtual std::string getSaveInfo() = 0; // return string to write to save file
-
 
 		// GENERAL METHODS
 		void deposit(double); // deposit money
@@ -23,8 +21,9 @@ class Account{
 		double getBalance(); // check cash available
 		void setBalance(double); // explicitly overwrite balance; only used for loading info from save
 
+		std::string getType(); // return accountType
 	protected:
-		std::string accountType; // type of account
+		std::string accountType;
 		double balance; // cash in account
 		
 };

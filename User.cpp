@@ -36,21 +36,21 @@ User::User(std::string userInfo){
 	
 	// Extract all info
 	firstName = userInfo.substr(0, userInfo.find("|"));
-	userInfo = userInfo.substr(userInfo.find("|"));
+	userInfo = userInfo.substr(userInfo.find("|")+1);
 	
 	lastName  = userInfo.substr(0, userInfo.find("|"));
-	userInfo = userInfo.substr(userInfo.find("|"));
+	userInfo = userInfo.substr(userInfo.find("|")+1);
 	
 	password = userInfo.substr(0, userInfo.find("|"));
-	userInfo = userInfo.substr(userInfo.find("|"));
+	userInfo = userInfo.substr(userInfo.find("|")+1);
 	
 	std::string tempBirthInfo = userInfo.substr(0, userInfo.find("|"));
 	birthDate = new Date(tempBirthInfo);
-	userInfo = userInfo.substr(userInfo.find("|"));
+	userInfo = userInfo.substr(userInfo.find("|")+1);
 
 	std::string tempAddressInfo = userInfo.substr(0, userInfo.find("|"));
 	address = new Address(tempAddressInfo);
-	userInfo = userInfo.substr(userInfo.find("|"));
+	userInfo = userInfo.substr(userInfo.find("|")+1);
 
 	checkingAcc = new CheckingAccount();
 	setCheckingAccount(userInfo);
