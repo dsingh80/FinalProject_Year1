@@ -17,7 +17,7 @@ class Bank{
 		void depositMoney(); // put in money. Checks if the user has any money to deposit
 		void withdrawMoney(); // checks if account has balance required
 
-		std::string getTransactionLog(); // returns log of all transactions
+		void printStatement(); // print logs
 		double stringToDouble(std::string); // converts to a double
 
 	private:

@@ -1,7 +1,6 @@
 #include "User.h"
 #include "CheckingAccount.h"
 
-#include <iostream>
 #include <functional> // hash function
 #include <string>
 #include <sstream>

@@ -1,8 +1,6 @@
 #include "User.h"
 #include "Address.h"
 #include "Date.h"
-#include "Account.h"
-#include "CheckingAccount.h"
 #include "Bank.h"
 
 void testUser();

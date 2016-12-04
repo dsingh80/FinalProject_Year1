@@ -1,6 +1,6 @@
 #include "Address.h"
 #include <sstream>
-#include <iostream>
+
 Address::Address(){
 	//Use modifier methods separately to construct an address
 	lineOne = "Line One";

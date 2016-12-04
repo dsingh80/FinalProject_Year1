@@ -1,6 +1,5 @@
 #include "CheckingAccount.h"
 #include <sstream>
-#include <iostream>
 
 CheckingAccount::CheckingAccount(){
 	accountType = "Checking";
@@ -14,7 +13,6 @@ CheckingAccount::CheckingAccount(std::string allInfo){
 	std::stringstream extractStream;
 	double newBal;
 
-	std::cout << "Checking Account Save Info read: " << allInfo;
 	extractStream << allInfo;
 
 	// Read balance

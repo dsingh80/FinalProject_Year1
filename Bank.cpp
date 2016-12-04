@@ -21,6 +21,7 @@ Bank::Bank(){
 		bool keepGoing = true;
 		
 		// Get a valid command to do
+		std::cin.ignore();
 		std::cout << "What can I do for you today?" << std::endl;
 		getline(std::cin, inputCmd);
 
@@ -38,6 +39,9 @@ Bank::Bank(){
 			}
 			else if(inputCmd == "withdraw"){
 				withdrawMoney();
+			}
+			else if(inputCmd == "logs" || inputCmd == "statement"){
+				printStatement();
 			}
 			else if(inputCmd == "getKey"){
 				std::cout << currentUser -> getKey() << std::endl;
@@ -172,7 +176,7 @@ void Bank::makeNewUser(){
 	// PROMPTS USER FOR INFORMATION TO CREATE NEW USER
 
 	currentUser = new User();
-	std::cout << "Inside MakeNewUser()" << std::endl;
+	//std::cout << "Inside MakeNewUser()" << std::endl;
 	std::string firstName = "";
 	std::string lastName = "";
 	std::string password;
@@ -367,8 +371,23 @@ void Bank::withdrawMoney(){
 	}
 }
 
-std::string Bank::getTransactionLog(){
-	return transactionLog;
+void Bank::printStatement(){
+	// PRINT LOGS
+	
+	std::string tempString; // string to print
+
+	std::ifstream inputStream;
+	inputStream.open(currentUser->getLogKey());
+	
+	if(inputStream.is_open()){
+		std::cout << "\n-------------STATEMENT-----------" << std::endl;
+		while(getline(inputStream, tempString)){
+			std::cout << tempString << std::endl;
+		}
+	}
+	else{
+		std::cout << "Could not find statement" << std::endl;
+	}
 }
 
 double Bank::stringToDouble(std::string tempDouble){
