@@ -1,9 +1,7 @@
 #ifndef BANK_H_EXISTS
 #define BANK_H_EXISTS
 
-#include "CheckingAccount.h"
 #include "User.h"
-#include "Date.h"
 #include <string>
 
 class Bank{

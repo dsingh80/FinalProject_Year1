@@ -1,5 +1,8 @@
 #include "User.h"
 #include "CheckingAccount.h"
+
+#include <iostream>
+#include <functional> // hash function
 #include <string>
 #include <sstream>
 
@@ -140,17 +143,19 @@ void User::setKey(){
 
 	// Use hashing to jumble the key
 	//key = std::hash<std::string>()(tempKey);
-	key = tempKey;
+	size_t hashKey = std::hash<std::string>()(tempKey);
 	
+	//Clear concat stream
+	concatStream.str(std::string());
+	concatStream << "." << std::to_string((int) hashKey) << ".sav";
+
+	key = concatStream.str();
+	
+	// LOG KEY
 	concatStream.str(std::string()); // clear the concatStream
-	
-	concatStream << ".";
-	concatStream << firstName << password << lastName << "LOG";
-	concatStream << ".log";
-	
-	tempKey = concatStream.str();
-	
-	logKey = tempKey;
+	concatStream << "." << std::to_string((int) hashKey) << ".log";
+
+	logKey = concatStream.str();
 }
 
 std::string User::getKey(){

@@ -22,7 +22,6 @@ Bank::Bank(){
 		
 		// Get a valid command to do
 		std::cout << "What can I do for you today?" << std::endl;
-		std::cin.ignore();
 		getline(std::cin, inputCmd);
 
 		while(keepGoing){
@@ -117,8 +116,6 @@ bool Bank::login(){
 			std::cout << "\nERROR: User save file not found!" << std::endl;
 			std::cout << "Would you like to make a new account?" << std::endl;
 		
-			// "Clear" previous input	
-			std::cin.ignore();
 			std::string tempInput = "";
 			getline(std::cin, tempInput); // get answer to question
 
