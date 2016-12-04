@@ -19,7 +19,21 @@ Bank::Bank(){
 
 		std::string inputCmd;
 		bool keepGoing = true;
-		
+	
+
+		/* PRINT COMMANDS FOR USER */
+		std::cout << "-----Valid Commands-----" << std::endl;
+		std::cout << "deposit - deposit money into checking account" << std::endl;
+		std::cout << "withdraw - withdraw money from checking account" << std::endl;
+		std::cout << "balance - check balance of checking account" << std::endl;
+		std::cout << "statement - print statement of transactions" << std::endl;
+		std::cout << "quit - exit the program" << std::endl;
+		std::cout << "------------------------" << std::endl;
+
+
+
+
+	
 		// Get a valid command to do
 		std::cin.ignore();
 		std::cout << "What can I do for you today?" << std::endl;
