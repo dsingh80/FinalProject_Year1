@@ -1,5 +1,5 @@
 # Computing II Final Project
-## By: Damanveer Singh
+By: Damanveer Singh
 
 ### Overview
 This project is seeking to create a Banking System with core features of a bank (accounts, deposits, withdrawals, etc.). The information collected will be stored in classes and saved in hidden files with encrypted names on the user’s computer. Classes are the main data structure used to manage data in this program.
